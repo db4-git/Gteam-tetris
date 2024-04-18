@@ -10,7 +10,7 @@ using namespace std;
 #define L 8
 
 const int dimw_y=45;
-const int dimw_x=31;
+const int dimw_x=32;
 const int y_start_w=5;
 const int x_start_w=20;
 
