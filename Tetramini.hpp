@@ -142,9 +142,8 @@ public:
 class Quadrato : public Tetramini{
     protected:
     public:
-    
-    Quadrato(WINDOW *win, int y, int x){
-        curwin=win;
+    Quadrato( WINDOW *win , int y, int x){
+	 	  curwin = win;
         keypad(curwin, true);
         getmaxyx(curwin,ymax,xmax);
         yloc=y;
