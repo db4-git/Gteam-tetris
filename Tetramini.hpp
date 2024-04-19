@@ -51,6 +51,8 @@ public:
 		   else	return false;
 	 }
 
+	 void saveTetramino();
+
 
     int getmv(){
         int choice = wgetch(curwin);
@@ -173,7 +175,6 @@ class Quadrato : public Tetramini{
     
 
     int getmv(){
-	 	  //if(isbottom()==true) ;
         int choice = wgetch(curwin);
         switch (choice)
         {
@@ -183,7 +184,7 @@ class Quadrato : public Tetramini{
         case KEY_LEFT:
             mvleft();
             break;
-       case KEY_RIGHT:
+        case KEY_RIGHT:
             mvright();
             break;
         default:
@@ -209,7 +210,9 @@ class Quadrato : public Tetramini{
         }
     }
 
-
+	 void saveTetramino(){
+			keypad(curwin , false);
+	 }
 };
 
 class Linea : public Tetramini{
@@ -318,7 +321,12 @@ class Linea : public Tetramini{
                 
             }
         }
-    };  
+    }; 
+
+	 void saveTetramino(){
+    		keypad(curwin, false);  
+			
+	 }
     
     int getmv(){
         int choice = wgetch(curwin);
@@ -341,5 +349,4 @@ class Linea : public Tetramini{
         }
     return choice;
     }
-
 };

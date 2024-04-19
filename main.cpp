@@ -16,7 +16,7 @@ int main(){
  Quadrato *q = new Quadrato(win, 3 , dimw_x/2 -2);
  //Linea *q = new Linea(win, 3, dimw_x/2 -2);  
  do{
- 	if(q->isbottom()==true)  mvwprintw(win,3,5,"In fondo");
+ 	if(q->isbottom()==true)  q->saveTetramino(); 		// mvwprintw(win,3,5,"In fondo");
 	q->display();
 	box(win, 0, 0);
 	wrefresh(win);
