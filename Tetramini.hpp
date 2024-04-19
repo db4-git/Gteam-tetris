@@ -17,7 +17,6 @@ const int x_start_w=20;
 class Tetramini
 {
 protected:
-    // XY pezzo[4];
 	 int xloc, yloc, xmax, ymax;
     int cur_rotation;
 public:
@@ -46,6 +45,12 @@ public:
     void rotation(){
 
     }
+	 
+	 bool isbottom(){
+	 		if(yloc == dimw_x + 10) return true;
+		   else	return false;
+	 }
+
 
     int getmv(){
         int choice = wgetch(curwin);
@@ -165,8 +170,10 @@ class Quadrato : public Tetramini{
         empty1();
         if(xloc< xmax-5) xloc++;;
     }
+    
 
     int getmv(){
+	 	  //if(isbottom()==true) ;
         int choice = wgetch(curwin);
         switch (choice)
         {
