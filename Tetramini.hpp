@@ -45,11 +45,7 @@ public:
     void rotation(){
 
     }
-	 
-	 bool isbottom(){
-	 		if(yloc == dimw_x + 10) return true;
-		   else	return false;
-	 }
+	 	
 
 	 void saveTetramino();
 
@@ -133,6 +129,8 @@ public:
         }
     }
 
+	void display();
+
    /* void get_tetram(){
         srand(time(0));
         int a= rand()%2;
@@ -210,8 +208,14 @@ class Quadrato : public Tetramini{
         }
     }
 
+    bool isbottom(){
+	 		if(yloc == dimw_x + 10) return true;
+		   else	return false;
+	 }
+
 	 void saveTetramino(){
 			keypad(curwin , false);
+			display();
 	 }
 };
 
@@ -324,8 +328,8 @@ class Linea : public Tetramini{
     }; 
 
 	 void saveTetramino(){
-    		keypad(curwin, false);  
-			
+    		keypad(curwin, false); 
+			display();
 	 }
     
     int getmv(){
