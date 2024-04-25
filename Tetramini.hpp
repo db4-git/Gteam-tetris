@@ -275,6 +275,13 @@ class Linea : public Tetramini{
        
     }
 
+
+    bool isbottom(){
+	 		if(yloc == dimw_x + 10) return true;
+		   else	return false;
+	 }
+
+
     void display(){
         int y = yloc;
         int x = xloc;
