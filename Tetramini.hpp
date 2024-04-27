@@ -20,6 +20,7 @@ protected:
 	 int xloc, yloc, xmax, ymax;
     int cur_rotation;
 public:
+	 int choice;
     WINDOW *curwin;  //devo poterci accedere nel main
 
     Tetramini(){
@@ -45,13 +46,11 @@ public:
     void rotation(){
 
     }
-	 	
 
 	 void saveTetramino();
 
-
     int getmv(){
-        int choice = wgetch(curwin);
+        this->choice = wgetch(curwin);
         switch (choice)
         {
         case KEY_DOWN:
@@ -69,7 +68,7 @@ public:
         default:
             break;
         }
-    return choice;
+    return this->choice;
     }
 
     void empty2(){
@@ -87,8 +86,7 @@ public:
                 } 
                 mvwaddch(curwin, y, x, ' ');
                 x++;
-            }
-            else if (cur_rotation == 180) {
+            }else if(cur_rotation == 180){
                 if(i==0) y=y+2, x=x-2;
                 mvwaddch(curwin, y, x, ' ');
                 x++;
@@ -112,7 +110,8 @@ public:
                 
             }
         }
-    }
+
+		}
 
     void empty1(){
         int x=xloc;
@@ -170,26 +169,24 @@ class Quadrato : public Tetramini{
         empty1();
         if(xloc< xmax-5) xloc++;;
     }
-    
 
-    int getmv(){
-        int choice = wgetch(curwin);
-        switch (choice)
-        {
-        case KEY_DOWN:
-            mvdown();
-            break;
-        case KEY_LEFT:
-            mvleft();
-            break;
-        case KEY_RIGHT:
-            mvright();
-            break;
-        default:
-            break;
-        }
-    return choice;
-    }
+    int getmv(int choice){
+		  switch (choice)
+        	{
+       	 case KEY_DOWN:
+            	mvdown();
+         	   break;
+       	 case KEY_LEFT:
+            	mvleft();
+         	   break;
+        	case KEY_RIGHT:
+            	mvright();
+         	   break;
+        	default:
+         	   break;
+      	}
+			return choice;
+    	}
     
     void display(){
         int x=xloc;
@@ -210,6 +207,7 @@ class Quadrato : public Tetramini{
 
     bool isbottom(){
 	 		if(yloc == dimw_x + 10) return true;
+			if(yloc+2 == '[' || yloc+2 == ']') return true; 
 		   else	return false;
 	 }
 
@@ -221,6 +219,7 @@ class Quadrato : public Tetramini{
 
 class Linea : public Tetramini{
     protected:
+	 int flag_rot;       //flag che indica lo stato della rotazione 
     public:
     Linea (WINDOW *win,int y, int x){
         curwin=win;
@@ -278,6 +277,7 @@ class Linea : public Tetramini{
 
     bool isbottom(){
 	 		if(yloc == dimw_x + 10) return true;
+			if(yloc+2 == '[' || yloc+2 == ']') return true;
 		   else	return false;
 	 }
 
@@ -339,8 +339,7 @@ class Linea : public Tetramini{
 			display();
 	 }
     
-    int getmv(){
-        int choice = wgetch(curwin);
+    int getmv(int choice){
         switch (choice)
         {
          case KEY_DOWN:
