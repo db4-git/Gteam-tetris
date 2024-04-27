@@ -11,7 +11,10 @@ bool isplaying = true;
 int choice;
 
 void gameQ(Quadrato *q , WINDOW *win){   //passati per riferimento perchè inizializzati dopo nel main
- do{	
+ do{   
+   	choice = wgetch(win);
+		if(choice == ERR ) q->mvdown();
+		else q->getmv(choice);
 		q->display();
 		box(win, 0, 0);
 		wrefresh(win);
@@ -21,15 +24,14 @@ void gameQ(Quadrato *q , WINDOW *win){   //passati per riferimento perchè inizi
 			wmove(win , 3 , dimw_x/2 - 2);
 			isplaying=false;
 		}
-		choice = wgetch(win);
-		if(choice == ERR ) q->mvdown();
-		else q->getmv(choice);
  }while(isplaying == true);
-
 
 }
 void gameL(Linea *l, WINDOW *win){
- do{		
+ do{	
+   	choice = wgetch(win);
+		if(choice == ERR ) l->mvdown();
+		else l->getmv(choice);
 		l->display();
 		box(win, 0, 0);
 		wrefresh(win);
@@ -39,9 +41,6 @@ void gameL(Linea *l, WINDOW *win){
 			wmove(win , 3 , dimw_x/2 - 2);
 			isplaying=false;
 		}
-		choice = wgetch(win);
-		if(choice == ERR) l->mvdown();
-		else l->getmv(choice);
   }while(isplaying == true);
 }
 
@@ -51,7 +50,7 @@ int main(){
  initscr();
  noecho();
  WINDOW *win = newwin( dimw_y ,dimw_x , y_start_w , x_start_w); 
- wtimeout(win, 300);		 
+ wtimeout(win, 600);		 
 
  do{	
  	isplaying=true; 		//se lo metto alla fine del while, non rientra più nel ciclo 
