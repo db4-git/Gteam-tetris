@@ -18,8 +18,8 @@ class Tetramini
 {
 protected:
 	 int xloc, yloc, xmax, ymax;
-    int cur_rotation;
 public:
+	 int cur_rotation;
 	 int choice;
     WINDOW *curwin;  //devo poterci accedere nel main
 
@@ -129,16 +129,6 @@ public:
     }
 
 	void display();
-
-   /* void get_tetram(){
-        srand(time(0));
-        int a= rand()%2;
-        if (a==0)
-        {
-            Quadrato(curwin, 0,5);
-        }
-        else Linea (curwin, 0,6);
-    }*/
 };
 
 
@@ -167,7 +157,7 @@ class Quadrato : public Tetramini{
 
     void mvright(){
         empty1();
-        if(xloc< xmax-5) xloc++;;
+        if(xloc< xmax-5) xloc++;
     }
 
     int getmv(int choice){
@@ -206,8 +196,7 @@ class Quadrato : public Tetramini{
     }
 
     bool isbottom(){
-	 		if(yloc == dimw_x + 10) return true;
-			if(yloc+2 == '[' || yloc+2 == ']') return true; 
+	 		if(yloc == dimw_x + 10) return true; 
 		   else	return false;
 	 }
 
@@ -276,9 +265,9 @@ class Linea : public Tetramini{
 
 
     bool isbottom(){
-	 		if(yloc == dimw_x + 10) return true;
-			if(yloc+2 == '[' || yloc+2 == ']') return true;
-		   else	return false;
+	 		if((cur_rotation == 90 || cur_rotation == 270) && (yloc == dimw_x + 8)) return true;
+			else if((cur_rotation == 0 || cur_rotation == 180) && (yloc == dimw_x + 9)) return true;
+		   else return false;
 	 }
 
 
