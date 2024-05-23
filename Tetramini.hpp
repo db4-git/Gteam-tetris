@@ -76,7 +76,7 @@ public:
         int x=xloc;
         for (int i = 0; i < L; i++)
         {
-        if(cur_rotation==90){
+        if(cur_rotation==90){        //
             if (i % 2 == 0) {
                 if (i != 0) {
                     y++;
@@ -86,7 +86,7 @@ public:
                 } 
                 mvwaddch(curwin, y, x, ' ');
                 x++;
-            }else if(cur_rotation == 180){
+            }else if(cur_rotation == 180){     //posizione orizzontale +1 verso il basso
                 if(i==0) y=y+2, x=x-2;
                 mvwaddch(curwin, y, x, ' ');
                 x++;
@@ -103,7 +103,7 @@ public:
                 }
                 mvwaddch(curwin, y, x, ' ');
                 x++;
-            } else if (cur_rotation == 0) {
+            } else if (cur_rotation == 0) {   //posizone orizzontale 
                 if(i==0) y++, x=x-2;
                 mvwaddch(curwin, y, x, ' ');
                 x++;
