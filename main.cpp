@@ -57,59 +57,7 @@ void gameL(Linea *l, WINDOW *win){
 		countmv++;
   }while(isplaying == true);
 }
-
-/* DA CANCELLARE!
-void NextTetramini(arrayp A){      //riaggiorna e stampa i successivi tetramini che verranno generati   //usa una struttura arrayp
-	for(int i=0; i<3 ; i++){
-		A.val[i]=rand()%5;
-		A.generated[i] = false;
-	}	
-}
-
-void DisplayNextTetramino(arrayp A, WINDOW *win){
-	int xloc, yloc;  //come nel piano cartesiano
-	//Metto a video i prossimi Tetramini che verranno generati{
-		   A.generated[0] = false;
-			for(int j=0; j<3 ; j++){    //shift arrayp.val a sinistra
-					A.val[j] = A.val[j+1];
-			}
-			A.val[2] = rand()%5;
-	wclear(win);
-	box(win , 0 , 0); //così la griglia rimane
-	for(int i=0; i<3; i++){   		
-			if(i==0){
-				yloc = 5 , xloc = 6;
-				wmove(win , 5 , 1);
-				wprintw(win, "-->");
-				}
-			else if(i==1) yloc= 10, xloc = 6;
-			else if(i==2) yloc = 15 , xloc = 6;
-				if(A.val[i]<3){
-				//stampa quadrato
-				for(int i=0; i<2; i++){
-					wmove(win , yloc , xloc);
-					for(int j=0; j<4; j++){
-						if(j%2==0) wprintw(win,"[");
-						else wprintw(win,"]");
-					}
-					yloc++;
-				}
-			}else if(A.val[i]>=3){
-			   //stampa linea
-				for(int i=0; i<4; i++){
-					wmove(win , yloc , xloc);
-					for(int j=0; j<2; j++){
-						if(j%2==0) wprintw(win, "[");
-						else wprintw(win , "]");
-					}
-					yloc++;
-				}
-	  		}	
-  
- 	  }
-	  refresh();
-	  wrefresh(win);	
-} */
+					
 
 void UpdateStatTetramini(int A[]){			//Aggiorna continuamente l'array di tetramini da generare 
 	if(contT == 0){		//primo turno della partita: primo pezzo generato in assoluto: contT = 0;
