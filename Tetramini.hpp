@@ -152,12 +152,12 @@ class Quadrato : public Tetramini{
 
     void mvleft(){
         empty1();
-        if(xloc>1) xloc = xloc - 2;
+        if(xloc>2) xloc = xloc - 2;
     }
 
     void mvright(){
         empty1();
-        if(xloc< xmax-5) xloc = xloc + 2;
+        if(xloc< xmax-6) xloc = xloc + 2;
     }
 
     int getmv(int choice){
@@ -197,7 +197,7 @@ class Quadrato : public Tetramini{
 
     bool isbottom(){
 	 	   if(yloc == dimw_x + 5) return true; 
-		   else if (mvwinch(curwin, yloc + 2, xloc) != ' ') return true;
+		   else if ((mvwinch(curwin, yloc + 2, xloc) != ' ') || (mvwinch(curwin, yloc + 2, xloc + 2) != ' ')) return true;
 		   else	return false;
 	 }
 
@@ -247,12 +247,12 @@ class Linea : public Tetramini{
 
      void mvleft(){
         empty2();
-        if(cur_rotation==90 && xloc>1){
+        if(cur_rotation==90 && xloc>2){
             xloc = xloc - 2;
         }
-        else if ((cur_rotation == 180 || cur_rotation==0) && xloc>3) {
+        else if ((cur_rotation == 180 || cur_rotation==0) && xloc>4) {
             xloc = xloc - 2;    
-        } else if (cur_rotation == 270 && xloc>-1) {
+        } else if (cur_rotation == 270 && xloc>0) {
                xloc = xloc - 2;
         }
     }
