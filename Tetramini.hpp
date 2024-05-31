@@ -201,6 +201,17 @@ class Quadrato : public Tetramini{
 		   else	return false;
 	 }
 
+    bool leftIsBlocked() {
+    	if ((mvwinch(curwin, yloc, xloc - 2) == ' ') && (mvwinch(curwin, yloc + 1, xloc - 2) == ' ')) return false;
+	return true;
+    }
+
+     bool rightIsBlocked() {
+    	if ((mvwinch(curwin, yloc, xloc + 4) == ' ') && (mvwinch(curwin, yloc + 1, xloc + 4) == ' ')) return false;
+	return true;
+    }
+
+
 	 void saveTetramino(){
 			keypad(curwin , false);
 			display();
@@ -235,12 +246,12 @@ class Linea : public Tetramini{
 
     void mvright(){
         empty2();
-        if(cur_rotation==90 && xloc<xmax-3){
+        if(cur_rotation==90 && xloc<xmax-0){
             xloc = xloc + 2;
         }
-        else if ((cur_rotation == 180 || cur_rotation==0) && xloc<xmax-7) {
+        else if ((cur_rotation == 180 || cur_rotation==0) && xloc<xmax-4) {
             xloc = xloc + 2;    
-        } else if (cur_rotation == 270 && xloc<xmax-5) {
+        } else if (cur_rotation == 270 && xloc<xmax-2) {
                xloc = xloc + 2;
         }
     }
@@ -277,6 +288,30 @@ class Linea : public Tetramini{
 			else if((cur_rotation == 0 || cur_rotation == 180) && (check_horizontal())) return true;
 		   else return false;
 	 }
+
+     bool leftIsBlocked() {
+	if (cur_rotation == 90 || cur_rotation == 270) {     
+		if ((mvwinch(curwin, yloc, xloc - 1) == ' ') && (mvwinch(curwin, yloc + 1, xloc - 1) == ' ') && (mvwinch(curwin, yloc + 2, xloc - 1) == ' ') && (mvwinch(curwin, yloc + 3, xloc - 1) == ' ')) return false;
+      	}
+	else if (cur_rotation == 0 || cur_rotation == 180) {
+		if (mvwinch(curwin, yloc + 2, xloc - 3) == ' ') return false;
+	}
+
+	return true;
+     }
+
+     bool rightIsBlocked() {
+    	 if (cur_rotation == 90 || cur_rotation == 270) {     
+    		if ((mvwinch(curwin, yloc, xloc + 2) == ' ') && (mvwinch(curwin, yloc + 1, xloc + 2) == ' ') && (mvwinch(curwin, yloc + 2, xloc + 2) == ' ') && (mvwinch(curwin, yloc + 3, xloc + 2) == ' ')) return false;
+      	}
+	else if (cur_rotation == 0 || cur_rotation == 180) {
+		if (mvwinch(curwin, yloc + 2, xloc + 6) == ' ') return false;
+	}
+
+	return true;
+
+     }
+
 
        void display(){
         int y = yloc;
