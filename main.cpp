@@ -1,5 +1,7 @@
 #include "Tetramini.hpp"
+
 #include <ncurses.h>
+
 using namespace std; 
 
 //Griglia creata in Tetramini.hpp
@@ -19,7 +21,15 @@ void gameQ(Quadrato *q , WINDOW *win){   //passati per riferimento perchè inizi
 	 		q->mvdown();
 			countmv=0;
 		}
-		q->getmv(choice);
+		else if (choice == KEY_LEFT && !q->leftIsBlocked()) {
+			q->getmv(choice);
+		}
+		else if (choice == KEY_RIGHT && !q->rightIsBlocked()) {
+			q->getmv(choice);
+		}
+		else if (choice == KEY_UP || choice == KEY_DOWN) {
+			q->getmv(choice);
+		}
 		keypad(win , true);
 		q->display();
 		box(win, 0, 0);
@@ -27,7 +37,7 @@ void gameQ(Quadrato *q , WINDOW *win){   //passati per riferimento perchè inizi
 		refresh();
 		if(q->isbottom()==true){
 			q->saveTetramino();
-			wmove(win , 3 , dimw_x/2 - 2);
+			wmove(win , 3 , dimw_x/2);
 			isplaying=false;
 		}
    	countmv++;
@@ -43,7 +53,15 @@ void gameL(Linea *l, WINDOW *win){
 			l->mvdown();
 			countmv=0;
 		}
-		l->getmv(choice);
+                else if (choice == KEY_LEFT && !l->leftIsBlocked()) {
+			l->getmv(choice);
+		}
+		else if (choice == KEY_RIGHT && !l->rightIsBlocked()) {
+			l->getmv(choice);
+		}
+		else if (choice == KEY_UP || choice == KEY_DOWN) {
+			l->getmv(choice);
+		}
 		keypad(win , true);
 		l->display();
 		box(win, 0, 0);
@@ -51,7 +69,7 @@ void gameL(Linea *l, WINDOW *win){
 		refresh();
 		if(l->isbottom()==true){
 			l->saveTetramino();
-			wmove(win , 3 , dimw_x/2 - 2);
+			wmove(win , 3 , dimw_x/2 - 1);
 			isplaying=false;
 		}
 		countmv++;
@@ -128,12 +146,12 @@ int main(){
 	UpdateStatTetramini(AT);
 	DisplayTetramini(AT, gamestat);
 	if((AT[contT]<2)){   
-   	Quadrato *q = new Quadrato(win, 3, dimw_x/2 - 2);	
+   	Quadrato *q = new Quadrato(win, 3, dimw_x/2 - 1);	
 		countmv=0;
 		gameQ(q, win);
  	}
  	else{
- 		Linea *l = new Linea(win , 3 , dimw_x/2 - 2);	
+ 		Linea *l = new Linea(win , 3 , dimw_x/2 - 1);	
 		countmv=0;
 		gameL(l, win);
  	}
@@ -148,11 +166,3 @@ int main(){
 
 
 	
-
-
-
-
-
-
-
-
