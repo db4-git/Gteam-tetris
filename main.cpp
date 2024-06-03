@@ -53,15 +53,10 @@ void gameL(Linea *l, WINDOW *win){
 			l->mvdown();
 			countmv=0;
 		}
-                else if (choice == KEY_LEFT && !l->leftIsBlocked()) {
-			l->getmv(choice);
-		}
-		else if (choice == KEY_RIGHT && !l->rightIsBlocked()) {
-			l->getmv(choice);
-		}
-		else if (choice == KEY_UP || choice == KEY_DOWN) {
-			l->getmv(choice);
-		}
+                else if (choice == KEY_LEFT && !l->leftIsBlocked()) l->getmv(choice);
+		else if (choice == KEY_RIGHT && !l->rightIsBlocked()) l->getmv(choice);
+		else if (choice == KEY_UP/* && l->canRotate()*/) l->getmv(choice);
+		else if (choice == KEY_DOWN) l->getmv(choice);
 		keypad(win , true);
 		l->display();
 		box(win, 0, 0);

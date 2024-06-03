@@ -275,38 +275,62 @@ class Linea : public Tetramini{
        
     }
 
-    bool check_horizontal() {
+    
+
+    bool check_horizontal_180() {
     	if ((mvwinch(curwin, yloc + 3, xloc - 2) != ' ') || (mvwinch(curwin, yloc + 3, xloc) != ' ') || (mvwinch(curwin, yloc + 3, xloc + 2) != ' ') || (mvwinch(curwin, yloc + 3, xloc + 4) != ' ')) return true;
 	
 	return false;
     }
-
+    bool check_horizontal_0() {
+    	if ((mvwinch(curwin, yloc + 2, xloc - 2) != ' ') || (mvwinch(curwin, yloc + 2, xloc) != ' ') || (mvwinch(curwin, yloc + 2, xloc + 2) != ' ') || (mvwinch(curwin, yloc + 2, xloc + 4) != ' ')) return true;
+	
+	return false;
+    }
     bool isbottom(){
-	 		if((cur_rotation == 90 || cur_rotation == 270) && (yloc == dimw_x + 3)) return true;
+	 		/*if((cur_rotation == 90 || cur_rotation == 270) && (yloc == dimw_x + 3)) return true;
 			else if((cur_rotation == 0 || cur_rotation == 180) && (yloc == dimw_x + 4)) return true;
 			else if((cur_rotation == 90 || cur_rotation == 270) && (mvwinch(curwin, yloc + 4, xloc) != ' ')) return true;
-			else if((cur_rotation == 0 || cur_rotation == 180) && (check_horizontal())) return true;
-		   else return false;
+			else if((cur_rotation == 0 || cur_rotation == 180) && (check_horizontal())) return true;*/
+	    if (cur_rotation == 90 && mvwinch(curwin, yloc + 4, xloc) != ' ') return true;
+	    else if (cur_rotation == 180 && check_horizontal_180()) return true;
+	    else if (cur_rotation == 270 && mvwinch(curwin, yloc + 4, xloc + 2) != ' ') return true;
+	    else if (cur_rotation == 0 && check_horizontal_0()) return true;
+	    
+	    return false;
 	 }
 
      bool leftIsBlocked() {
-	if (cur_rotation == 90 || cur_rotation == 270) {     
+	if (cur_rotation == 90) {     
 		if ((mvwinch(curwin, yloc, xloc - 1) == ' ') && (mvwinch(curwin, yloc + 1, xloc - 1) == ' ') && (mvwinch(curwin, yloc + 2, xloc - 1) == ' ') && (mvwinch(curwin, yloc + 3, xloc - 1) == ' ')) return false;
       	}
-	else if (cur_rotation == 0 || cur_rotation == 180) {
+	else if (cur_rotation == 180) {
 		if (mvwinch(curwin, yloc + 2, xloc - 3) == ' ') return false;
+	}
+	else if (cur_rotation == 270) {     
+		if ((mvwinch(curwin, yloc, xloc + 1) == ' ') && (mvwinch(curwin, yloc + 1, xloc + 1) == ' ') && (mvwinch(curwin, yloc + 2, xloc + 1) == ' ') && (mvwinch(curwin, yloc + 3, xloc + 1) == ' ')) return false;
+      	}
+	else if (cur_rotation == 0) {
+		if (mvwinch(curwin, yloc + 1, xloc - 3) == ' ') return false;
 	}
 
 	return true;
      }
 
      bool rightIsBlocked() {
-    	 if (cur_rotation == 90 || cur_rotation == 270) {     
+    	 if (cur_rotation == 90) {     
     		if ((mvwinch(curwin, yloc, xloc + 2) == ' ') && (mvwinch(curwin, yloc + 1, xloc + 2) == ' ') && (mvwinch(curwin, yloc + 2, xloc + 2) == ' ') && (mvwinch(curwin, yloc + 3, xloc + 2) == ' ')) return false;
       	}
-	else if (cur_rotation == 0 || cur_rotation == 180) {
+	else if (cur_rotation == 180) {
 		if (mvwinch(curwin, yloc + 2, xloc + 6) == ' ') return false;
 	}
+	else if (cur_rotation == 270) {     
+    		if ((mvwinch(curwin, yloc, xloc + 4) == ' ') && (mvwinch(curwin, yloc + 1, xloc + 4) == ' ') && (mvwinch(curwin, yloc + 2, xloc + 4) == ' ') && (mvwinch(curwin, yloc + 3, xloc + 4) == ' ')) return false;
+      	}
+	else if (cur_rotation == 0) {
+		if (mvwinch(curwin, yloc + 1, xloc + 6) == ' ') return false;
+	}
+
 
 	return true;
 
