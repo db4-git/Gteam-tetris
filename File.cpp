@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
-
+#include <ncurses.h>
 #include "file.hpp"
 
 void save_data(int points) {
@@ -12,21 +12,22 @@ void save_data(int points) {
   file.close();
 }
 
-void load_data() {
+plist load_data() {
   ifstream file;
   file.open("classifica.txt");
   int points;
   plist head = NULL;
   
   while (file >> points) {
-    addNode(points);
+    addNode(points, head);
   }
+  return head;
 }
 
-plist addNode(int points) {
+plist addNode(int points, plist head) {
   if (head == NULL) {
     head = new node;
-    head->val = value;
+    head->val = points;
     head->next = NULL;
     return head;
   }
@@ -54,4 +55,45 @@ plist addNode(int points) {
   }
 
   return head;
+}
+
+int main(int argc, char ** argv){
+    initscr();
+    cbreak();
+    noecho();
+    curs_set(0);
+    int maxy, maxx;
+    getmaxyx(stdscr, maxy, maxx);
+    plist head= load_data();
+    WINDOW *classifica= newwin(21, 30, maxy/4, maxx/4);
+    box(classifica, 0,0);
+    refresh();
+    wrefresh(classifica);
+    keypad(classifica, true);
+    mvwaddch(classifica, 3, 2, 9);
+    int r[10]={1,2,3,4,5,6,7,8,9,10};
+    /*for (int i = 0; i < 15; i++)
+    {
+      r[i]= head->val;
+      head=head->next;
+    }*/
+    int e=1;
+    int a;
+    for (int i = 0; i < 10; i++)
+      {
+        mvwprintw(classifica, e, 2, "%d", r[i]);
+        mvwaddch(classifica, e, 3, '.');
+        e=e+2;
+      }
+    mvwaddch(classifica, 19,3, '0');
+    mvwaddch(classifica, 19,4, '.');
+    do{
+      wrefresh(classifica);
+      a=wgetch(classifica);
+    
+    }while (a!=10);
+    
+    
+    endwin();
+
 }
