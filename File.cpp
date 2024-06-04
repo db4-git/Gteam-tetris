@@ -1,28 +1,15 @@
 #include <iostream>
 #include <fstream>
-using namespace std;
 #include <ncurses.h>
-#include "file.hpp"
 
-void save_data(int points) {
-  ofstream file;
-  file.open("classifica.txt", ios::app);
+using namespace std;
 
-  file << points;
-  file.close();
-}
+struct node {
+	int val;
+	node* next;
+};
 
-plist load_data() {
-  ifstream file;
-  file.open("classifica.txt");
-  int points;
-  plist head = NULL;
-  
-  while (file >> points) {
-    addNode(points, head);
-  }
-  return head;
-}
+typedef node* plist;
 
 plist addNode(int points, plist head) {
   if (head == NULL) {
@@ -57,6 +44,25 @@ plist addNode(int points, plist head) {
   return head;
 }
 
+void save_data(int points) {
+  ofstream file;
+  file.open("classifica.txt", ios::app);
+
+  file << points;
+  file.close();
+}
+
+plist load_data(plist head) {
+  ifstream file;
+  file.open("classifica.txt");
+  int points;
+  
+  while (file >> points) {
+    addNode(points, head);
+  }
+  return head;
+}
+
 int main(int argc, char ** argv){
     initscr();
     cbreak();
@@ -64,7 +70,8 @@ int main(int argc, char ** argv){
     curs_set(0);
     int maxy, maxx;
     getmaxyx(stdscr, maxy, maxx);
-    plist head= load_data();
+    plist head = new node;
+    head = load_data(head);
     WINDOW *classifica= newwin(21, 30, maxy/4, maxx/4);
     box(classifica, 0,0);
     refresh();
@@ -72,11 +79,11 @@ int main(int argc, char ** argv){
     keypad(classifica, true);
     mvwaddch(classifica, 3, 2, 9);
     int r[9]={1,2,3,4,5,6,7,8,9};
-    /*for (int i = 0; i < 10; i++)  //non funzona segmentation fault
+    for (int i = 0; i < 10; i++)  //non funzona segmentation fault
     {                               //dovrebbe inserirmi nell'array i primi 10 puteggi 
-      p[i]= head->val;
+      r[i]= head->val;
       head=head->next;
-    }*/
+    }
     int e=1;
     int a;
     for (int i = 0; i < 9; i++)    //stampa un elenco di numeri da 1 a 10
@@ -95,5 +102,4 @@ int main(int argc, char ** argv){
     
     
     endwin();
-
 }
