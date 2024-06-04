@@ -71,21 +71,21 @@ int main(int argc, char ** argv){
     wrefresh(classifica);
     keypad(classifica, true);
     mvwaddch(classifica, 3, 2, 9);
-    int r[10]={1,2,3,4,5,6,7,8,9,10};
-    /*for (int i = 0; i < 15; i++)
-    {
-      r[i]= head->val;
+    int r[9]={1,2,3,4,5,6,7,8,9};
+    /*for (int i = 0; i < 10; i++)  //non funzona segmentation fault
+    {                               //dovrebbe inserirmi nell'array i primi 10 puteggi 
+      p[i]= head->val;
       head=head->next;
     }*/
     int e=1;
     int a;
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 9; i++)    //stampa un elenco di numeri da 1 a 10
       {
         mvwprintw(classifica, e, 2, "%d", r[i]);
         mvwaddch(classifica, e, 3, '.');
         e=e+2;
       }
-    mvwaddch(classifica, 19,3, '0');
+    mvwprintw(classifica, 19,2, "10");
     mvwaddch(classifica, 19,4, '.');
     do{
       wrefresh(classifica);
