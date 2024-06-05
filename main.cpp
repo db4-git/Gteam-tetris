@@ -130,7 +130,7 @@ int main(){
  noecho();
  curs_set(0);
  WINDOW *win = newwin( dimw_y ,dimw_x , y_start_w , x_start_w);
- WINDOW *gamestat = newwin( 24 , 26 , 10, 60);   //finestra con le statistiche di gioco (tetramini successivi, punteggio attuale, ecc..) 
+ WINDOW *gamestat = newwin( 20 , 26 , 10, 60);   //finestra con le statistiche di gioco (tetramini successivi, punteggio attuale, ecc..) 
  wtimeout(win, 250);		 
  //pongo a false l'arrayp contenente i tetramini
  box(gamestat, 0 ,0 );
@@ -141,12 +141,12 @@ int main(){
 	UpdateStatTetramini(AT);
 	DisplayTetramini(AT, gamestat);
 	if((AT[contT]<2)){   
-   	Quadrato *q = new Quadrato(win, 3, dimw_x/2 - 1);	
+   	Quadrato *q = new Quadrato(win, 1, dimw_x/2 - 1);	
 		countmv=0;
 		gameQ(q, win);
  	}
  	else{
- 		Linea *l = new Linea(win , 3 , dimw_x/2 - 1);	
+ 		Linea *l = new Linea(win , 1 , dimw_x/2 - 1);	
 		countmv=0;
 		gameL(l, win);
  	}
