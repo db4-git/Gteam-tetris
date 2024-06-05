@@ -58,7 +58,7 @@ plist load_data(plist head) {
   int points;
   
   while (file >> points) {
-    addNode(points, head);
+    head = addNode(points, head);
   }
   return head;
 }
@@ -70,7 +70,7 @@ int main(int argc, char ** argv){
     curs_set(0);
     int maxy, maxx;
     getmaxyx(stdscr, maxy, maxx);
-    plist head = new node;
+    plist head =NULL;
     head = load_data(head);
     WINDOW *classifica= newwin(21, 30, maxy/4, maxx/4);
     box(classifica, 0,0);
@@ -78,12 +78,10 @@ int main(int argc, char ** argv){
     wrefresh(classifica);
     keypad(classifica, true);
     mvwaddch(classifica, 3, 2, 9);
+    int p[10];
     int r[9]={1,2,3,4,5,6,7,8,9};
-    for (int i = 0; i < 10; i++)  //non funzona segmentation fault
-    {                               //dovrebbe inserirmi nell'array i primi 10 puteggi 
-      r[i]= head->val;
-      head=head->next;
-    }
+    int i=0;
+     
     int e=1;
     int a;
     for (int i = 0; i < 9; i++)    //stampa un elenco di numeri da 1 a 10
@@ -94,10 +92,17 @@ int main(int argc, char ** argv){
       }
     mvwprintw(classifica, 19,2, "10");
     mvwaddch(classifica, 19,4, '.');
+    e=1;
+    while(head!=NULL & i<10) //inserisci i primi 10 punteggi in classifica
+    {
+      mvwprintw(classifica, e,6,"%d", head->val);
+      head=head->next;
+      i++;
+      e= e+2;
+    }
     do{
       wrefresh(classifica);
       a=wgetch(classifica);
-    
     }while (a!=10);
     
     
