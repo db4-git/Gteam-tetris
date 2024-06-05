@@ -275,7 +275,30 @@ class Linea : public Tetramini{
        
     }
 
-    
+    bool canRotate() {
+    	if (cur_rotation == 90 && mvwinch(curwin, yloc + 2, xloc - 2) == ' ' && mvwinch(curwin, yloc + 2, xloc + 2) == ' ' && mvwinch(curwin, yloc + 2, xloc + 4) == ' ') return true;
+	else if (cur_rotation == 180 && mvwinch(curwin, yloc, xloc + 2) == ' ' && mvwinch(curwin, yloc + 1, xloc + 2) == ' ' && mvwinch(curwin, yloc + 3, xloc + 2) == ' ') return true;
+	else if (cur_rotation == 270 && mvwinch(curwin, yloc + 1, xloc - 2) == ' ' && mvwinch(curwin, yloc + 1, xloc) == ' ' && mvwinch(curwin, yloc + 1, xloc + 4) == ' ') return true;
+	else if (cur_rotation == 0 && mvwinch(curwin, yloc, xloc) == ' ' && mvwinch(curwin, yloc + 2, xloc) == ' ' && mvwinch(curwin, yloc + 3, xloc) == ' ') return true;
+
+	return false;
+    }
+
+    bool checkBotLine() {
+        bool c = false;
+	
+    	for (int i = 0; i < dimw_x, i++) {
+		if (mvwinch(curwin, dimw_y, i) == ' ' ) {
+			c = false;
+			break;
+		}
+		else {
+			c = true;
+		}
+	}
+
+	return c;
+    }
 
     bool check_horizontal_180() {
     	if ((mvwinch(curwin, yloc + 3, xloc - 2) != ' ') || (mvwinch(curwin, yloc + 3, xloc) != ' ') || (mvwinch(curwin, yloc + 3, xloc + 2) != ' ') || (mvwinch(curwin, yloc + 3, xloc + 4) != ' ')) return true;
