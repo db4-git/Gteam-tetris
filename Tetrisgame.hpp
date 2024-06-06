@@ -2,6 +2,7 @@
 //#include "Griglia.hpp"
 #include <iostream>
 #include "menu.hpp"
+//#include "file.hpp"
 
 class TetrisGame{
     protected:
@@ -9,11 +10,20 @@ class TetrisGame{
     int xmax, ymax;
     bool game_over;
     Game_Menu *menu;
+    Ranking *classifica;
     public:
     TetrisGame(){
+        initscr();
+        noecho();
+        cbreak();
+        curs_set(0);
+        int sce;
         getmaxyx(stdscr, ymax, xmax);
-        menu= new Game_Menu(ymax, xmax);
-        
+        int highlight=0;
+        //create_menu(ymax, xmax);
+        menu = new Game_Menu(ymax, xmax, highlight);
+        getch();
+        endwin();
     }
 
     void processInput(){
