@@ -63,15 +63,16 @@ plist load_data(plist head) {
   }
   return head;
 }
-class Ranking{
+/*class Ranking{
   protected:
     WINDOW *rank;
   public:
     
-    Ranking(int ymax,int xmax){
+    Ranking(int ymax,int xmax, int &a){
       plist head =NULL;
       head = load_data(head);
-      rank= newwin(21, 30, ymax/4, xmax/4);
+      rank= newwin(21, 30, ymax/4, 6);
+
       box(rank, 0,0);
       refresh();
       wrefresh(rank);
@@ -82,7 +83,7 @@ class Ranking{
       int i=0;
      
       int e=1;
-      int a;
+      //int a;
       for (int i = 0; i < 9; i++)    //stampa un elenco di numeri da 1 a 10
         {
           mvwprintw(rank, e, 2, "%d", r[i]);
@@ -113,13 +114,13 @@ class Ranking{
     }
 
   }
-};
+};*/
 
 
-void create_ranking(int ymax,int xmax){
+void create_ranking(int ymax,int xmax, int &a){
 plist head =NULL;
       head = load_data(head);
-      WINDOW *rank= newwin(21, 30, ymax/4, xmax/4);
+      WINDOW *rank= newwin(21, 30, ymax/4, xmax/5);
       box(rank, 0,0);
       refresh();
       wrefresh(rank);
@@ -130,7 +131,7 @@ plist head =NULL;
       int i=0;
      
       int e=1;
-      int a;
+      //int a;
       for (int i = 0; i < 9; i++)    //stampa un elenco di numeri da 1 a 10
         {
           mvwprintw(rank, e, 2, "%d", r[i]);
