@@ -1,78 +1,52 @@
 #include <ncurses.h>
-//#include "Griglia.hpp"
 #include <iostream>
 #include "menu.hpp"
 #include "griglia.hpp"
-//#include "file.hpp"
+#include "ranking.hpp"
 
 class TetrisGame{
     protected:
-    //Griglia griglia;
     int xmax, ymax;
     bool game_over;
-    //Game_Menu *menu;
-    //Ranking *classifica;
     public:
     TetrisGame(){
-        initscr();
+        initscr();    //queste sono le funzioni che inizializzano tutto ncurses
         noecho();
         cbreak();
         curs_set(0);
-        int sce;
         getmaxyx(stdscr, ymax, xmax);
      
-        
+        int sce;
         int highlight=0;
-        //menu = new Game_Menu(ymax, xmax, highlight, sce);
-        //create_griglia();
         create_menu(ymax, xmax, highlight, sce);
       
         
-            while (1)
+            while (1)  //ciclo infinito che si interrompe solo con control c poi decidete voi
             {
-                 if (highlight==0 && sce == 10)
+                 if (highlight==0 && sce == 10) // crea la griglia quando si seleziona il tasto NUOVA PARTITA
             {
                 create_griglia();
-                /*if (gameover) serve a rimettere menu una volta finito il game
+                /*if (sce== 'w') // serve a rimettere menu una volta finito il game
                 {
-                    create_menu(ymax, xmax, highlight, sce)
+                    create_menu(ymax, xmax, highlight, sce);
                 }*/
                 
                 
             }
-            if (highlight==1 && sce == 10)
+            if (highlight==1 && sce == 10) // crea la classifica quando si seleziona il tasto Classifica
             {
                 create_ranking(ymax, xmax, sce);
                 if (sce == 'q')
                 {
-                    create_menu(ymax, xmax, highlight, sce);
+                    create_menu(ymax, xmax, highlight, sce); //ricrea il menu (riparte il ciclo while)
                 }
                 
             }
             }
-            //create_menu(ymax, xmax, highlight, sce);
-            //sce=getch();
-            //create_menu(ymax, xmax, highlight, sce);
-            /*if (highlight==0 && sce == 10)
-            {
-                create_griglia();
-            }
-            if (highlight==1 && sce == 10)
-            {
-                create_ranking(ymax, xmax);
-                refresh();
-            }
-            */
-
-        //create_griglia();
-        
-        getch();
         endwin();
     }
 
-    void processInput(){
-        //char input= griglia.getInput();
-    }
+    
 
     bool isOver(){
         return game_over;

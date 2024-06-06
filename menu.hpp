@@ -1,93 +1,10 @@
 #include <ncurses.h>
-#include "ranking.hpp"
-//#include "griglia.hpp"
 using namespace std;
 struct scelte
 {
     char a[20];
 };
 
-/*class Game_Menu
-{
-    protected:
-    WINDOW *menuwin;
-    Ranking *classifica;
-public:
-    Game_Menu(int ymax,int xmax, int highlight){
-    menuwin= newwin(4, 20, ymax / 2, xmax / 2);
-    box(menuwin, 0,0);
-    refresh();
-    wrefresh(menuwin);
-    keypad(menuwin, true);
-    //int highlight=0;
-    scelte o[2]={{" NUOVA PARTITA "},{"  CLASSIFICA  "}};
-    int choice;
-    wrefresh(menuwin);
-    
-    while (1)
-    {
-       
-        for(int i = 0; i < 2; i++)
-        {
-            //vogliamo evidenziare cosa stiamo facendo ora
-            if (i == highlight)
-            {
-                //attron per una specifica finestra
-                wattron(menuwin, A_STANDOUT);
-            }
-            mvwprintw(menuwin,i+1, 3, o[i].a);
-            
-            wattroff(menuwin,A_STANDOUT);
-        }
-        
-        choice=wgetch(menuwin);
-
-        switch (choice)
-        {
-            case KEY_UP:
-                highlight--;
-                if (highlight == -1)
-                {
-                    highlight=1;
-                }
-                break;
-            case KEY_DOWN:
-                highlight++;
-                if (highlight==2)
-                {
-                    highlight=0;
-                }
-                break;
-            default:
-                break;
-        }
-        
-        if (highlight== 1 & choice == 10)
-        {
-            
-            //wclear(menuwin);
-            //wrefresh(menuwin);
-            //delwin(menuwin);
-            classifica= new Ranking(ymax, xmax);
-            
-        }
-        
-        
-        if (choice == 10  && highlight==0) //10 è il valore di del tasto invio
-        {
-            wclear(menuwin);
-            wrefresh(menuwin);
-            delwin(menuwin);
-            break;
-        }
-       
-        
-    }
-    }
-
-
-};
-*/
 void create_menu(int  ymax,int xmax, int &highlight, int &choice){
 
     WINDOW *menu= newwin(4, 20, ymax/2, xmax/2);
@@ -97,8 +14,6 @@ void create_menu(int  ymax,int xmax, int &highlight, int &choice){
     keypad(menu, true);
 
 
-    //int highlight=0;
-    //int choice;
     scelte o[2]={{" NUOVA PARTITA "},{"  CLASSIFICA  "}};
     
     wrefresh(menu);
@@ -121,7 +36,7 @@ void create_menu(int  ymax,int xmax, int &highlight, int &choice){
         
         choice=wgetch(menu);
 
-        switch (choice)
+        switch (choice)  //cambia highlight in base alle frecciette
         {
             case KEY_UP:
                 highlight--;
@@ -140,16 +55,9 @@ void create_menu(int  ymax,int xmax, int &highlight, int &choice){
             default:
                 break;
         }
-        if (highlight==1 && choice==10)
-        {
-            wclear(menu);
-            wrefresh(menu);
-            delwin(menu);
-            //create_ranking(ymax, xmax);
-            break;
-        }
         
-        if (choice == 10 && highlight==0) //10 è il valore di del tasto invio
+        //esce dal ciclo elimina la finestra del menu
+        if (choice == 10) //10 è il valore di del tasto invio
         {
             wclear(menu);
             wrefresh(menu);
@@ -158,8 +66,7 @@ void create_menu(int  ymax,int xmax, int &highlight, int &choice){
         }
         
     }
-    //create_griglia();
-    //getch();
+   
 }
 
 
