@@ -33,6 +33,11 @@ class TetrisGame{
                  if (highlight==0 && sce == 10)
             {
                 create_griglia();
+                /*if (gameover) serve a rimettere menu una volta finito il game
+                {
+                    create_menu(ymax, xmax, highlight, sce)
+                }*/
+                
                 
             }
             if (highlight==1 && sce == 10)
