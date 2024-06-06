@@ -1,4 +1,5 @@
 #include "Tetramini.hpp"
+#include "menu.hpp"
 
 #include <ncurses.h>
 
@@ -10,7 +11,6 @@ int choice;
 int countmv;
 int AT[2];   //array che contiene i tetramini successivi
 int contT=0;  //conta i tetramini che vengono generati per capire a che profondita' riempire l' AT
-
 
 bool checkLine(WINDOW *win, int y) {
 	bool c = false;
@@ -39,8 +39,8 @@ void replaceLines(WINDOW *win, int y) {
 		}
 	}
 
-	wrefresh(win);
-	refresh();
+	//wrefresh(win);
+	//refresh();
 }
 
 int delLines(WINDOW *win) {
@@ -54,8 +54,8 @@ int delLines(WINDOW *win) {
 		}
 	}
 
-	wrefresh(win);
-	refresh();
+	//wrefresh(win);
+	//refresh();
 
 	return countLines;
 }
@@ -190,18 +190,36 @@ int main(){
  	isplaying=true; 		//se lo metto alla fine del while, non rientra più nel ciclo
 	UpdateStatTetramini(AT);
 	DisplayTetramini(AT, gamestat);
-	delLines(win);
 	if((AT[contT]<2)){   
-   	Quadrato *q = new Quadrato(win, 1 , dimw_x/2 - 1);	
+   		Quadrato *q = new Quadrato(win, 1 , dimw_x/2 - 1);	
+		if (q->gameOver()) {
+			wclear(win);
+			wclear(gamestat);
+			wrefresh(win);
+			wrefresh(gamestat);
+			delwin(win);
+			delwin(gamestat);
+			create_menu(dimw_y, dimw_x);
+		}
 		countmv=0;
 		gameQ(q, win);
  	}
  	else{
  		Linea *l = new Linea(win , 1 , dimw_x/2 - 1);	
+		if (l->gameOver()) {
+			wclear(win);
+			wclear(gamestat);
+			wrefresh(win);
+			wrefresh(gamestat);
+			delwin(win);
+			delwin(gamestat);
+			create_menu(dimw_y, dimw_x);
+		}
 		countmv=0;
 		gameL(l, win);
  	}
 	contT++;   //Ogni volta che un tetramino generato arriva in fondo, si incrementa contT
+        delLines(win);
 	refresh();
 	wrefresh(gamestat); 
  }while(!isplaying);
