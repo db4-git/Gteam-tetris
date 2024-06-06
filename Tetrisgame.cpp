@@ -1,15 +1,7 @@
-#include <ncurses.h>
-#include <iostream>
-#include "menu.hpp"
-#include "griglia.hpp"
-#include "ranking.hpp"
+#include "Tetrisgame.hpp"
+using namespace std;
 
-class TetrisGame{
-    protected:
-    int xmax, ymax;
-    bool game_over;
-    public:
-    TetrisGame(){
+TetrisGame:: TetrisGame(){
         initscr();    //queste sono le funzioni che inizializzano tutto ncurses
         noecho();
         cbreak();
@@ -45,5 +37,3 @@ class TetrisGame{
             }
         endwin();
     }
-
-};

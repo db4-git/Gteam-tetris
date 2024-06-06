@@ -1,29 +1,14 @@
-#include <ncurses.h>
-using namespace std;
-struct scelte
-{
-    char a[20];
-};
+#include "menu.hpp"
 
+void create_menu(int  ymax,int xmax, int &highlight, int &choice){
 
-int main(int argc, char ** argv){
-    initscr();
-    cbreak();
-    noecho();
-    curs_set(0);
-    int maxy, maxx;
-    getmaxyx(stdscr, maxy, maxx);
-
-
-    WINDOW *menu= newwin(4, 20, maxy/2, maxx/2);
+    WINDOW *menu= newwin(4, 20, ymax/2, xmax/2);
     box(menu, 0,0);
     refresh();
     wrefresh(menu);
     keypad(menu, true);
 
 
-    int highlight=0;
-    int choice;
     scelte o[2]={{" NUOVA PARTITA "},{"  CLASSIFICA  "}};
     
     wrefresh(menu);
@@ -46,7 +31,7 @@ int main(int argc, char ** argv){
         
         choice=wgetch(menu);
 
-        switch (choice)
+        switch (choice)  //cambia highlight in base alle frecciette
         {
             case KEY_UP:
                 highlight--;
@@ -65,13 +50,18 @@ int main(int argc, char ** argv){
             default:
                 break;
         }
+        
+        //esce dal ciclo elimina la finestra del menu
         if (choice == 10) //10 è il valore di del tasto invio
         {
-           break;
+            wclear(menu);
+            wrefresh(menu);
+            delwin(menu);
+            break;
         }
         
     }
-    
-    endwin();
-
+   
 }
+
+
