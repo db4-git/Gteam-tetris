@@ -284,22 +284,6 @@ class Linea : public Tetramini{
 	return false;
     }
 
-    bool checkBotLine() {
-        bool c = false;
-	
-    	for (int i = 0; i < dimw_x, i++) {
-		if (mvwinch(curwin, dimw_y, i) == ' ' ) {
-			c = false;
-			break;
-		}
-		else {
-			c = true;
-		}
-	}
-
-	return c;
-    }
-
     bool check_horizontal_180() {
     	if ((mvwinch(curwin, yloc + 3, xloc - 2) != ' ') || (mvwinch(curwin, yloc + 3, xloc) != ' ') || (mvwinch(curwin, yloc + 3, xloc + 2) != ' ') || (mvwinch(curwin, yloc + 3, xloc + 4) != ' ')) return true;
 	
