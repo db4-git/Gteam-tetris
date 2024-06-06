@@ -211,6 +211,11 @@ class Quadrato : public Tetramini{
 	return true;
     }
 
+     bool gameOver() {
+     	if (mvwinch(curwin, yloc, xloc) != ' ' || mvwinch(curwin, yloc + 1, xloc) != ' ') return true;
+
+	return false;
+     }
 
 	 void saveTetramino(){
 			keypad(curwin , false);
@@ -219,8 +224,7 @@ class Quadrato : public Tetramini{
 };
 
 class Linea : public Tetramini{
-    protected:
-	 int flag_rot;       //flag che indica lo stato della rotazione 
+    protected: 
     public:
     Linea (WINDOW *win,int y, int x){
         curwin=win;
@@ -341,6 +345,12 @@ class Linea : public Tetramini{
 
 	return true;
 
+     }
+
+     bool gameOver() {
+     	if (mvwinch(curwin, yloc, xloc) != ' ' || mvwinch(curwin, yloc + 1, xloc) != ' ' || mvwinch(curwin, yloc + 2, xloc) != ' ' || mvwinch(curwin, yloc + 3, xloc) != ' ') return true;
+
+	return false;
      }
 
 
