@@ -1,5 +1,5 @@
 #include "Tetramini.hpp"
-
+//#include "menu.hpp"
 #include <ncurses.h>
 
 using namespace std; 
@@ -10,6 +10,14 @@ int choice;
 int countmv;
 int AT[2];   //array che contiene i tetramini successivi
 int contT=0;  //conta i tetramini che vengono generati per capire a che profondita' riempire l' AT
+int score = 0;
+
+void UpdateScore(WINDOW *win, int cont) {
+	mvwprintw(win, 15, 8, "SCORE: %d", score);
+	score = score + (cont * 100);
+	wrefresh(win);
+}
+
 bool gameOverL(WINDOW *win) {
      	if (mvwinch(win, 1, dimw_x/2 - 1) != ' ' || mvwinch(win, 2, dimw_x/2 - 1) != ' ' || mvwinch(win, 3, dimw_x/2 - 1) != ' ' || mvwinch(win, 4, dimw_x/2 - 1) != ' ') return true;
 
@@ -73,7 +81,7 @@ int delLines(WINDOW *win) {
 
 
 
-void gameQ(Quadrato *q , WINDOW *win){   //passati per riferimento perchè inizializzati dopo nel main
+void gameQ(Quadrato *q , WINDOW *win, WINDOW *gwin){   //passati per riferimento perchè inizializzati dopo nel main
  do{  
 	  
    	choice = wgetch(win);
@@ -100,12 +108,14 @@ void gameQ(Quadrato *q , WINDOW *win){   //passati per riferimento perchè inizi
 			q->saveTetramino();
 			wmove(win , 3 , dimw_x/2);
 			isplaying=false;
+			int contS = delLines(win);
+			UpdateScore(gwin, contS);
 		}
    	countmv++;
  }while(isplaying == true);
 
 }
-void gameL(Linea *l, WINDOW *win){
+void gameL(Linea *l, WINDOW *win, WINDOW *gwin){
  do{	
 	   
    	choice = wgetch(win);
@@ -127,6 +137,8 @@ void gameL(Linea *l, WINDOW *win){
 			l->saveTetramino();
 			wmove(win , 3 , dimw_x/2 - 1);
 			isplaying=false;
+			int contS = delLines(win);
+			UpdateScore(gwin, contS);
 		}
 		countmv++;
   }while(isplaying == true);
@@ -201,40 +213,40 @@ int main(){
  	isplaying=true; 		//se lo metto alla fine del while, non rientra più nel ciclo
 	UpdateStatTetramini(AT);
 	DisplayTetramini(AT, gamestat);
+	UpdateScore(gamestat, 0);
 	if((AT[contT]<2)){     		
 		if (gameOverQ(win)) {
-			wclear(win);
+			/*wclear(win);
 			wclear(gamestat);
 			wrefresh(win);
 			wrefresh(gamestat);
 			delwin(win);
-			delwin(gamestat);
+			delwin(gamestat);*/
 			//mvwaddch(win, 1, dimw_x - 3, 'a');
-			break;
-			create_menu(dimw_y, dimw_x);
+			//break;
+			//create_menu(dimw_y, dimw_x);
 		}
 		Quadrato *q = new Quadrato(win, 1 , dimw_x/2 - 1);	
 		countmv=0;
-		gameQ(q, win);
+		gameQ(q, win, gamestat);
 	}
  	else{ 	
 		if (gameOverL(win)) {
-			wclear(win);
+			/*wclear(win);
 			wclear(gamestat);
 			wrefresh(win);
 			wrefresh(gamestat);
 			delwin(win);
-			delwin(gamestat);
+			delwin(gamestat);*/
 			//mvwaddch(win, 1, dimw_x - 3, 'a');
-			break;
-			create_menu(dimw_y, dimw_x);
+			//break;
+			//create_menu(dimw_y, dimw_x);
 		}
 		Linea *l = new Linea(win , 1 , dimw_x/2 - 1);	
 		countmv=0;
-		gameL(l, win);
+		gameL(l, win, gamestat);
  	}
 	contT++;   //Ogni volta che un tetramino generato arriva in fondo, si incrementa contT
-        delLines(win);
 	refresh();
 	wrefresh(gamestat); 
  }while(!isplaying);
