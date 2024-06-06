@@ -1,12 +1,13 @@
 #include <ncurses.h>
 #include "ranking.hpp"
+//#include "griglia.hpp"
 using namespace std;
 struct scelte
 {
     char a[20];
 };
 
-class Game_Menu
+/*class Game_Menu
 {
     protected:
     WINDOW *menuwin;
@@ -86,8 +87,8 @@ public:
 
 
 };
-
-void create_menu(int  ymax,int xmax){
+*/
+void create_menu(int  ymax,int xmax, int &highlight, int &choice){
 
     WINDOW *menu= newwin(4, 20, ymax/2, xmax/2);
     box(menu, 0,0);
@@ -96,8 +97,8 @@ void create_menu(int  ymax,int xmax){
     keypad(menu, true);
 
 
-    int highlight=0;
-    int choice;
+    //int highlight=0;
+    //int choice;
     scelte o[2]={{" NUOVA PARTITA "},{"  CLASSIFICA  "}};
     
     wrefresh(menu);
@@ -141,7 +142,11 @@ void create_menu(int  ymax,int xmax){
         }
         if (highlight==1 && choice==10)
         {
-            create_ranking(ymax, xmax);
+            wclear(menu);
+            wrefresh(menu);
+            delwin(menu);
+            //create_ranking(ymax, xmax);
+            break;
         }
         
         if (choice == 10 && highlight==0) //10 è il valore di del tasto invio
@@ -149,11 +154,12 @@ void create_menu(int  ymax,int xmax){
             wclear(menu);
             wrefresh(menu);
             delwin(menu);
+            break;
         }
         
     }
-    
-
+    //create_griglia();
+    //getch();
 }
 
 
