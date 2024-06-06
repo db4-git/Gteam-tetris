@@ -12,6 +12,56 @@ int AT[2];   //array che contiene i tetramini successivi
 int contT=0;  //conta i tetramini che vengono generati per capire a che profondita' riempire l' AT
 
 
+bool checkLine(WINDOW *win, int y) {
+	bool c = false;
+	
+    	for (int i = 1; i < dimw_x; i++) {
+		if (mvwinch(win, y, i) == ' ' ) {
+			c = false;
+			break;
+		}
+		else {
+			c = true;
+		}
+	}
+	
+	return c;
+}
+
+void replaceLines(WINDOW *win, int y) {
+	bool b = false;
+
+	for (int i = y; i > 2; i--) {
+		for (int j = 1; j < dimw_x - 1; j++) {
+			chtype r = mvwinch(win, i - 1, j);
+
+			mvwaddch(win, i, j, r);	
+		}
+	}
+
+	wrefresh(win);
+	refresh();
+}
+
+int delLines(WINDOW *win) {
+	int countLines = 0;
+
+	for (int i = dimw_y - 2; i > 1; i--) {
+		if (checkLine(win, i)) {
+			replaceLines(win, i);
+			countLines++;
+			i++;
+		}
+	}
+
+	wrefresh(win);
+	refresh();
+
+	return countLines;
+}
+
+
+
 void gameQ(Quadrato *q , WINDOW *win){   //passati per riferimento perchè inizializzati dopo nel main
  do{  
 	  
@@ -55,7 +105,7 @@ void gameL(Linea *l, WINDOW *win){
 		}
                 else if (choice == KEY_LEFT && !l->leftIsBlocked()) l->getmv(choice);
 		else if (choice == KEY_RIGHT && !l->rightIsBlocked()) l->getmv(choice);
-		else if (choice == KEY_UP/* && l->canRotate()*/) l->getmv(choice);
+		else if (choice == KEY_UP && l->canRotate()) l->getmv(choice);
 		else if (choice == KEY_DOWN) l->getmv(choice);
 		keypad(win , true);
 		l->display();
@@ -140,8 +190,9 @@ int main(){
  	isplaying=true; 		//se lo metto alla fine del while, non rientra più nel ciclo
 	UpdateStatTetramini(AT);
 	DisplayTetramini(AT, gamestat);
+	delLines(win);
 	if((AT[contT]<2)){   
-   	Quadrato *q = new Quadrato(win, 1, dimw_x/2 - 1);	
+   	Quadrato *q = new Quadrato(win, 1 , dimw_x/2 - 1);	
 		countmv=0;
 		gameQ(q, win);
  	}
