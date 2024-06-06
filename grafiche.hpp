@@ -1,8 +1,8 @@
-#include "Tetramini.hpp";
-#include <ncurses.h>;
+#include "Tetramini.hpp"
+#include <ncurses.h>
 using namespace std;
 
-isplaying = true;
+bool isplaying = true;
 int choice;
 int countmv;
 int AT[2];
