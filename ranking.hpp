@@ -2,6 +2,7 @@
 #include <cstring>
 #include <ncurses.h>
 #include <ctime>
+#include <fstream>
 using namespace std;
 struct node {
   int val;
