@@ -1,5 +1,7 @@
 #include "menu.hpp"
 
+
+
 void create_menu(int  ymax,int xmax, int &highlight, int &choice){
 
     WINDOW *menu= newwin(4, 20, ymax/2, xmax/2);
@@ -24,7 +26,7 @@ void create_menu(int  ymax,int xmax, int &highlight, int &choice){
                 //attron per una specifica finestra
                 wattron(menu, A_STANDOUT);
             }
-            mvwprintw(menu,i+1, 3, o[i].a);
+            mvwprintw(menu,i+1, 3, "%s", o[i].a);
             
             wattroff(menu,A_STANDOUT);
         }

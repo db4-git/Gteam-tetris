@@ -1,7 +1,7 @@
 #include "Tetrisgame.hpp"
 using namespace std;
 
-TetrisGame:: TetrisGame(){
+TetrisGame :: TetrisGame(){
         initscr();    //queste sono le funzioni che inizializzano tutto ncurses
         noecho();
         cbreak();
