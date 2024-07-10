@@ -63,7 +63,7 @@ bool create_menu(int  ymax,int xmax, int &highlight, int &choice){
         }
 		  else if(choice == 120) return true;
     } 
-	 return false;
+	 return NULL;
 }
 
 

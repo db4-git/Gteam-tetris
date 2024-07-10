@@ -30,16 +30,17 @@ bool gameOverQ(WINDOW *win) {
 }
 
 bool checkFullEmptyLine(WINDOW *win, int y) {
-	bool c = false;
+	bool c = true;
 	
     	for (int i = 1; i < dimw_x - 1; i++) {
 		if (mvwinch(win, y, i) != ' ' ) {
-			c = false;
-			break;
+			/*c = false;
+			break; */
+			return false;
 		}
-		else {
+		/*else {
 			c = true;
-		}
+		}*/
 	}
 	
 	return c;
@@ -48,36 +49,32 @@ bool checkFullEmptyLine(WINDOW *win, int y) {
 
 
 bool checkLine(WINDOW *win, int y) {
-	bool c = false;
-	
-    	for (int i = 1; i < dimw_x - 1; i++) {
-		if (mvwinch(win, y, i) == ' ' ) {
-			c = false;
-			break;
+	bool c = true; 
+	   for (int i = 1; i < dimw_x - 1; i++) {
+		if (mvwinch(win, y, i) == ' ' ) { 	
+		   /*c = false;
+			break;*/
+			return false;
 		}
-		else {
+		/*else {
 			c = true;
-		}
+		}*/
 	}
-	
 	return c;
 }
 
 void replaceLines(WINDOW *win, int y) {
 	bool b = false;
-
 	for (int i = y; i > 2; i--) {
 		for (int j = 1; j < dimw_x - 1; j++) {
 			if (checkFullEmptyLine(win, i)) {
 				b = true;
-				break;
+				return;
 			}
-
 			chtype r = mvwinch(win, i - 1, j);
-
 			mvwaddch(win, i, j, r);	
 		}
-		if (b) break;
+	//	if (b) break;
 	}
 
 	//wrefresh(win);
@@ -146,7 +143,7 @@ void gameL(Linea *l, WINDOW *win, WINDOW *gwin){
 			l->mvdown();
 			countmv=0;
 		}
-                else if (choice == KEY_LEFT && !l->leftIsBlocked()) l->getmv(choice);
+      else if (choice == KEY_LEFT && !l->leftIsBlocked()) l->getmv(choice);
 		else if (choice == KEY_RIGHT && !l->rightIsBlocked()) l->getmv(choice);
 		else if (choice == KEY_UP && l->canRotate()) l->getmv(choice);
 		else if (choice == KEY_DOWN) l->getmv(choice);

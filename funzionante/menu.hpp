@@ -8,4 +8,4 @@ struct scelte
     char a[20];
 };
 
-void create_menu(int  ymax,int xmax, int &highlight, int &choice);
+bool create_menu(int  ymax,int xmax, int &highlight, int &choice);

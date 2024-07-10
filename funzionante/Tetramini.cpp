@@ -49,7 +49,7 @@ void Tetramini::empty2(){
         int x=xloc;
         for (int i = 0; i < L; i++)
         {
-        if(cur_rotation==90){        //
+        if(cur_rotation==90){        
             if (i % 2 == 0) {
                 if (i != 0) {
                     y++;
