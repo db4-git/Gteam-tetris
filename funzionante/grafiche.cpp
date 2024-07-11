@@ -32,11 +32,11 @@ bool gameOverQ(WINDOW *win) {
 bool checkFullEmptyLine(WINDOW *win, int y) {
 	bool c = true;
 	
-    	for (int i = 1; i < dimw_x - 1; i++) {
+    	for (int i = 1; c && i < dimw_x - 1; i++) {
 		if (mvwinch(win, y, i) != ' ' ) {
-			/*c = false;
-			break; */
-			return false;
+			c = false;
+			//break; 
+			//return false;
 		}
 		/*else {
 			c = true;
@@ -50,11 +50,11 @@ bool checkFullEmptyLine(WINDOW *win, int y) {
 
 bool checkLine(WINDOW *win, int y) {
 	bool c = true; 
-	   for (int i = 1; i < dimw_x - 1; i++) {
+	   for (int i = 1; c && i < dimw_x - 1; i++) {
 		if (mvwinch(win, y, i) == ' ' ) { 	
-		   /*c = false;
-			break;*/
-			return false;
+		   c = false;
+			//break;
+			//return false;
 		}
 		/*else {
 			c = true;
@@ -65,18 +65,17 @@ bool checkLine(WINDOW *win, int y) {
 
 void replaceLines(WINDOW *win, int y) {
 	bool b = false;
-	for (int i = y; i > 2; i--) {
-		for (int j = 1; j < dimw_x - 1; j++) {
+	for (int i = y; !b && i > 2; i--) {
+		for (int j = 1; !b && j < dimw_x - 1; j++) {
 			if (checkFullEmptyLine(win, i)) {
 				b = true;
-				return;
+				//return;
 			}
 			chtype r = mvwinch(win, i - 1, j);
 			mvwaddch(win, i, j, r);	
 		}
 	//	if (b) break;
 	}
-
 	//wrefresh(win);
 	//refresh();
 }
@@ -85,7 +84,7 @@ int delLines(WINDOW *win) {
 	int countLines = 0;
 
 	for (int i = dimw_y - 2; i > 1; i--) {
-		if (checkLine(win, i)) {
+		if(checkLine(win,i)){      
 			replaceLines(win, i);
 			countLines++;
 			i++;
